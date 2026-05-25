@@ -38,3 +38,20 @@ This file contains the intervention scoring and analysis steps. Each step in thi
 
 ### Results
 Figures are stored under `./figures`, and all intermediate results are stored under `./results`.
+
+#### Notes on Intermediate Feature Files
+
+The `results/*_features.pkl` files are not included in this repository because they are extremely large, often ranging from approximately 1 GB to nearly 3 GB per file. These files are generated from `./pisa-escs-main.py` and store intermediate attention-head activation representations extracted from the language models during the probing stage.
+
+Each feature file contains `(features, labels)`, where `features.shape = (num_samples, 1, num_layers, num_heads, head_dim)`.
+
+For the 7B models used in this project (`Llama-2-7B-Chat`, `Mistral-7B-Instruct-v0.1`, and `Vicuna-7B-v1.5`), this is typically `(num_students, 1, 32, 32, 128)`.
+
+The dimensions correspond to:
+- `num_students`: the number of PISA student samples for a given country
+- `1`: only the final-token representation is retained
+- `32`: transformer layers
+- `32`: attention heads per layer
+- `128`: hidden dimension for each attention head
+
+The stored activations correspond to the attention-head outputs of the final token in each prompt. These intermediate neural representations are later used for linear probing, layer/head ranking, intervention vector construction, and activation steering experiments. They are excluded from version control because their file sizes exceed the practical limits for pushing to Git.
