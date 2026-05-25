@@ -35,3 +35,6 @@ This file contains the label-transformation robustness checks, including the ori
 `./pisa-escs-intervention.py`
 
 This file contains the intervention scoring and analysis steps. Each step in this file is independent and should not be run all at once. Only one step should be uncommented and run at a time.
+
+### Results
+Figures are stored under `./figures`, and all intermediate results are stored under `./results`.
