@@ -1,16 +1,16 @@
 # COMP8800 Educational Probing
 
-## Dataset
+## 1. Dataset
 
 This project uses the PISA 2018 dataset, which can be downloaded [here](https://webfs.oecd.org/pisa2022/index.html).
 
 The project focuses on four countries: Australia, Brazil, Japan, and Switzerland. Country-specific subsets derived from the original PISA 2018 student questionnaire data are stored under `./data`.
 
-## Reproducibility
+## 2. Reproducibility
 
 The code is written in Python 3.x and was run on a university-managed GPU cluster `Cluster1` using Slurm.
 
-### Main file
+### 2.1 Main file
 
 `./pisa-escs-main.py`
 
@@ -24,22 +24,22 @@ Recommended resources:
 
 Estimated total runtime: 40+ hours, depending on the model, country, and compute node.
 
-### Label Transformations
+### 2.2 Label Transformations
 
 `./pisa-escs-label-transformations.py`
 
 This file contains the label-transformation robustness checks, including the original ESCS labels, randomly permuted labels, sine-transformed labels, and cubic-transformed labels.
 
-### Intervention
+### 2.3 Intervention
 
 `./pisa-escs-intervention.py`
 
 This file contains the intervention scoring and analysis steps. Each step in this file is independent and should not be run all at once. Only one step should be uncommented and run at a time.
 
-### Results
+## 3. Results
 Figures are stored under `./figures`, and all intermediate results are stored under `./results`.
 
-#### Notes on Intermediate Feature Files
+### 3.1 Notes on Intermediate Feature Files
 
 The `results/*_features.pkl` files are not included in this repository because they are extremely large, often ranging from approximately 1 GB to nearly 3 GB per file. These files are generated from `./pisa-escs-main.py` and store intermediate attention-head activation representations extracted from the language models during the probing stage.
 
@@ -55,3 +55,7 @@ The dimensions correspond to:
 - `128`: hidden dimension for each attention head
 
 The stored activations correspond to the attention-head outputs of the final token in each prompt. These intermediate neural representations are later used for linear probing, layer/head ranking, intervention vector construction, and activation steering experiments. They are excluded from version control because their file sizes exceed the practical limits for pushing to Git.
+
+## 4. Acknowledgement
+
+This project adapts the probing and intervention workflow from Kim, Evans, and Schein (2025), *Linear Representations of Political Perspective Emerge in Large Language Models* (ICLR 2025), for an educational PISA (ESCS) setting: https://openreview.net/forum?id=rwqShzb9li
